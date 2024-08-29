@@ -1,0 +1,27 @@
+
+*{
+    box-sizing: border-box;
+}
+
+.app{
+    display: block;
+    width: 70%;
+    align-items: center;
+    margin: auto;
+    padding: 50px;
+    box-shadow: 0.1rem 0.225rem 0.45rem 0.4rem rgba(0, 0, 0, 0.075) !important;
+    background-color: rgba(6, 6, 124, 0.889);
+    color: white;
+    border-radius: 50px;
+}
+
+.list-of-tasks{
+    width: 100%;
+    border: 2px solid black;
+    padding: 20px 40px;
+    border-radius: 50px;
+}
+
+.task{
+    display: flex;
+}
