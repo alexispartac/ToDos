@@ -12,9 +12,8 @@ export default function Task({task}){
                 <input type="checkbox" 
                         style={{width:"20px", height:"20px"}} 
                         name="task"     
-                        id={task.id} 
                         checked = {checked}
-                        onChange={ () => {completeTask(task); return setChecked(false)} }
+                        onChange={ () => {completeTask(task); return setChecked(true)} }
                 />
             </form>
             <p style={{width:"30%", margin:"auto", textAlign:"center"}}> {task.text} </p>

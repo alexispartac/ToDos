@@ -6,7 +6,7 @@ import Task from "./Task.jsx"
 
 export default function ListOfTasks(){
     const { listTasks } = useContext(ListContext);
-
+    
     return (
         <div className="list-of-tasks">
             <section>
