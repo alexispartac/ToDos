@@ -35,6 +35,8 @@ section {
     justify-content: flex-start;
     padding: 1rem;
     background-color: rgba(0,0,0,0.4);
+    margin: auto;
+    align-items: center;
 }
 
 form {

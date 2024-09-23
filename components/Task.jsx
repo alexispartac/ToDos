@@ -7,13 +7,13 @@ export default function Task({task}){
     const [ checked, setChecked ] = useState(false)
 
     return (
-        <div className="task">
+        <div className="task" id={task+'id'}>
             <form style={{width:"5%"}}>
                 <input type="checkbox" 
                         style={{width:"20px", height:"20px"}} 
                         name="task"     
                         checked = {checked}
-                        onChange={ () => {completeTask(task); return setChecked(true)} }
+                        onChange={ () => {completeTask(task); return setChecked(false)} }
                 />
             </form>
             <p style={{width:"30%", margin:"auto", textAlign:"center"}}> {task.text} </p>

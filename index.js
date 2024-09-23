@@ -10,16 +10,17 @@ import cors from 'cors'
 
 // app
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:5173', // permite accesul doar de la această origine
+    methods: ['GET', 'POST', 'PATCH', 'OPTIONS'], // metodele permise
+    allowHeaders : ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/users', usersRoutes);
 app.use('/tasks', tasksRoutes);
 
-app.use(cors({
-    origin: 'http://localhost:5173', // permite accesul doar de la această origine
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'], // metodele permise
-    allowHeaders : [ 'Content-Type' , 'Authorization' ],
-}));
 
 const PORT = process.env.PORT || 8080;
 

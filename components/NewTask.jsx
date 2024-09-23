@@ -2,21 +2,23 @@ import React from "react";
 import { useContext, useState } from "react";
 import { ListContext } from "../Context/ModuleContext";
 import axios from "axios";
+import './styles.css'
 
-export default function NewTask() {
+export default function NewTask({userID}) {
     const [task, setTask] = useState('')
     const {addTaskToList} = useContext(ListContext)
 
     const addTask = async(item) =>{
         try{
             await axios.patch("http://localhost:8080/tasks/newtask", 
-                {text: item},
+                {"task": item},
                 {
                     params : {
-                        "id": "66e2f161d97835c549ddc640"
+                        "id": userID
                     }
                 }
             )
+            console.log(item)
         }catch (error) {
             if (!error.response) {
               console.log('Network error:', error);
@@ -28,8 +30,8 @@ export default function NewTask() {
 
     const hendleSubmit = (e) => {
         if(task){
-            addTaskToList(task);
             addTask(task);
+            addTaskToList(task);
         }else{
             console.log("Nu ati introdus nimic!")
         }

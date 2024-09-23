@@ -23,13 +23,30 @@ const { ObjectId } = mongodb;
         }
     };
 
+    export const findUser = async(req, res) => {
+
+        const user = req.query;
+        console.log(1, user)
+        try{
+            const findUser = await col.findOne({user: user.username, pwd: user.password});
+            if(!findUser)
+                res.status(404).json({message: "User don t find!"});
+            else 
+                res.status(200).json({user:findUser});
+            console.log(findUser)
+        }catch(error){
+            res.status(404).json({error: "Something went wrong!"});
+        }
+
+    }
+
     export const addNewUser = async(req, res) => {
 
         const newUser = req.body;
     
         try{
     
-            await col.insertOne(new Object(req.body));
+            await col.insertOne(new Object({...newUser, tasks: []}));
     
             res.send(newUser);
     

@@ -3,17 +3,16 @@ import axios from 'axios'
 import { ListContext } from "./ModuleContext";
 import React from "react";
  
-export const ProviderList = ({children}) => {
+export const ProviderList = ({children, userID}) => {
     const [listTasks, setListTasks] = useState([]);
 
     // Lista de todos salvate
     const getTasks = async() => {
-
         try {
             const response = await axios.get("http://localhost:8080/tasks/alltasks", 
                 {
                     params : {
-                        "id": "66e2f161d97835c549ddc640"
+                        "id": userID
                     }
                 }
             );
@@ -24,7 +23,7 @@ export const ProviderList = ({children}) => {
             if (!error.response) {
               console.log('Network error:', error);
             } else {
-              console.log('Error response:', error.response);
+              console.log('Error response:', "Nu exista taskuri!");
             }
         }
     };
@@ -32,7 +31,7 @@ export const ProviderList = ({children}) => {
     useEffect(() => {
         getTasks();
         if(!listTasks)
-            console.log('ToDoS nu auu fost incarcate!')
+            console.log('ToDoS nu au fost incarcate!')
     }, []);
     //
 

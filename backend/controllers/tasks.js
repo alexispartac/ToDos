@@ -9,7 +9,7 @@ const { ObjectId } = mongodb;
 
 export const addNewTask = async(req,res) => {
     // modifica lista de tasks a userului
-    
+
     const { "task" : newTask} = req.body;
     const id = req.query.id;
 
@@ -27,7 +27,6 @@ export const addNewTask = async(req,res) => {
 export const listOfTasks = async(req, res) => {
 
     const id = req.query.id;
-
     try{
         const user= await col.findOne({_id : new ObjectId(id)})
         console.log("USER:", user)

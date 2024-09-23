@@ -1,12 +1,16 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
 import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "./axios";
 import React from "react";
+import axios from "axios";
+import './register.css'
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register';
+const REGISTER_URL = 'http://localhost:8080/users/register';
 
 const Register = () => {
     const userRef = useRef();
@@ -55,7 +59,7 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
+                { user: user, pwd: pwd },
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -88,7 +92,7 @@ const Register = () => {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="#">Sign In</a>
+                        <a href="/index.html">Sign In</a>
                     </p>
                 </section>
             ) : (
@@ -173,7 +177,7 @@ const Register = () => {
                         Already registered?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="#">Sign In</a>
+                            <a href="/index.html">Sign In</a>
                         </span>
                     </p>
                 </section>
@@ -183,3 +187,10 @@ const Register = () => {
 }
 
 export default Register
+
+const root = createRoot(document.getElementById("root"));
+root.render(
+    <StrictMode>
+        <Register />
+    </StrictMode>
+);
