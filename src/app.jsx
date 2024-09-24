@@ -8,15 +8,20 @@ export default function App(){
     const [token, setToken, removeToken] = useCookies(['user'])
 
     function handleLogin(user) {
-      setToken('user', user, { path: '/' })
+      setToken('user', user, { path: '/' });
     }
+
+    function handleLogout() {
+      removeToken('user');
+    }
+
     return (
 
         <div className="app">
             <CookiesProvider>
                 <div>
                     {token.user ? 
-                        <WelcomePage userID={token.user.id} />  : <LoginPage onLogin={handleLogin} />}
+                        <WelcomePage userID={token.user.id} onLogout={handleLogout}/>  : <LoginPage onLogin={handleLogin} />}
                 </div>
             </CookiesProvider>
         </div>

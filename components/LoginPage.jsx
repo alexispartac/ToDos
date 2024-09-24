@@ -35,6 +35,9 @@ function LoginPage({ onLogin }) {
       onLogin({ username: username, password: password, id: user._id })
     else
         setSuccess(false);
+
+    setUsername('');
+    setPassword('');
   }
 
   return (

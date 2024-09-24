@@ -12,7 +12,7 @@ import cors from 'cors'
 const app = express();
 app.use(cors({
     origin: 'http://localhost:5173', // permite accesul doar de la această origine
-    methods: ['GET', 'POST', 'PATCH', 'OPTIONS'], // metodele permise
+    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'], // metodele permise
     allowHeaders : ['Content-Type', 'Authorization'],
     credentials: true
 }));

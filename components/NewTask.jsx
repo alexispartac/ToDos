@@ -14,7 +14,7 @@ export default function NewTask({userID}) {
                 {"task": item},
                 {
                     params : {
-                        "id": userID
+                        "userID": userID
                     }
                 }
             )

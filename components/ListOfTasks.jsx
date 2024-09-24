@@ -5,14 +5,15 @@ import Task from "./Task.jsx"
 import './styles.css'
 
 
-export default function ListOfTasks(){
+export default function ListOfTasks({userID}){
     const { listTasks } = useContext(ListContext);
     
     return (
         <div className="list-of-tasks">
             <section>
                 <h2 style={{borderBottom:"2px solid"}}>Tasks</h2>
-                { listTasks.map( task => <Task id={task+'id'} task={task}/> )}
+                { listTasks.map( (task, index) => <Task id={index} task={task} userID={userID} />
+            )}
             </section>
         </div>
     );

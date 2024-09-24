@@ -41,8 +41,8 @@ export const ProviderList = ({children, userID}) => {
         console.log(listTasks)
     }
 
-    const completeTask = (item) => {       
-        setListTasks(listTasks.filter(itemTask => item.id !== itemTask.id))     
+    const deleteTask = (item) => {       
+        setListTasks(listTasks.filter(itemTask => item.text !== itemTask.text))     
     }
 
     return (
@@ -50,7 +50,7 @@ export const ProviderList = ({children, userID}) => {
             value={{
                 listTasks,
                 addTaskToList,
-                completeTask
+                deleteTask
             }}>
             {children}
         </ListContext.Provider>
