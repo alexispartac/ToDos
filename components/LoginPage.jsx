@@ -2,9 +2,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import "./login.css"
-// cautarea x-userID cu headers
 
-const LOGIN_URL = 'http://localhost:8080/users/user/one'
+
+const LOGIN_URL = 'http://localhost:8080/users/login'
 
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -14,27 +14,29 @@ function LoginPage({ onLogin }) {
   async function verifyCredentials(){
 
     try{
-      const user = await axios.get(LOGIN_URL,{
-        params: {username: username, password: password}
-      })
-
-      if(user.status === 200)
-          return user.data.user;
-      else
-          return false;
+      const response = await axios.post(LOGIN_URL,
+          {username: username, password: password}
+      )
+          
+      if(response.status === 200)
+          return response.data.xuserId;
+        
     }catch(error){
-        console.log('Error: user don t find!')
+          console.log("Error-FE: ", error)
+          return false;
     }
+
   }
-
-
+        
   async function handleSubmit(event) {
     event.preventDefault();
-    const user = await verifyCredentials()
-    if(user)
-      onLogin({ username: username, password: password, id: user._id })
+
+    const xuserId = await verifyCredentials()
+
+    if(!xuserId)
+      setSuccess(false);
     else
-        setSuccess(false);
+      onLogin(xuserId)
 
     setUsername('');
     setPassword('');

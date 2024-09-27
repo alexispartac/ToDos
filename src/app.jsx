@@ -7,8 +7,8 @@ import WelcomePage from "../components/WelcomePage.jsx";
 export default function App(){
     const [token, setToken, removeToken] = useCookies(['user'])
 
-    function handleLogin(user) {
-      setToken('user', user, { path: '/' });
+    function handleLogin(xuserid) {
+      setToken('user', xuserid, { path: '/' });
     }
 
     function handleLogout() {
@@ -21,7 +21,7 @@ export default function App(){
             <CookiesProvider>
                 <div>
                     {token.user ? 
-                        <WelcomePage userID={token.user.id} onLogout={handleLogout}/>  : <LoginPage onLogin={handleLogin} />}
+                        <WelcomePage userID={token.user} onLogout={handleLogout}/>  : <LoginPage onLogin={handleLogin} />}
                 </div>
             </CookiesProvider>
         </div>
