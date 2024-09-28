@@ -8,22 +8,25 @@ export const ProviderList = ({children, userID}) => {
 
     // Lista de todos salvate
     const getTasks = async() => {
+
         try {
-            const response = await axios.get("http://localhost:8080/tasks/alltasks", 
+
+            const response = await axios.get("http://localhost:8080/tasks", 
                 {
-                    params : {
-                        "id": userID
+                    headers : {
+                        "userId": userID
                     }
                 }
             );
+
             const allTasks = response.data.tasks;
             setListTasks(allTasks);
 
-        }catch (error) {
+        }catch(error) {
             if (!error.response) {
               console.log('Network error:', error);
             } else {
-              console.log('Error response:', "Nu exista taskuri!");
+              console.log('Error response:', error);
             }
         }
     };
@@ -33,7 +36,6 @@ export const ProviderList = ({children, userID}) => {
         if(!listTasks)
             console.log('ToDoS nu au fost incarcate!')
     }, []);
-    //
 
     const addTaskToList = async(item) => {
 

@@ -4,10 +4,10 @@ import {listOfTasks, addNewTask, deleteTask} from '../controllers/tasks.js'
 const router = express.Router()           
 
 //
-router.get( '/alltasks/', listOfTasks)
+router.get( '/', listOfTasks)
 
-router.patch( '/newtask/', addNewTask);
+router.patch( '/', addNewTask);
 
-router.delete( '/deletetask', deleteTask);
+router.delete( '/', deleteTask);
 
 export default router;

@@ -61,12 +61,14 @@ const Register = () => {
             const response = await axios.post(REGISTER_URL,
                 { user: user, pwd: pwd },
                 {
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
                     withCredentials: true
                 }
             );
-            console.log(response?.data);
-            console.log(response?.accessToken);
+            console.log(response.data);
+            //console.log(response.accessToken);
             console.log(JSON.stringify(response))
             setSuccess(true);
             //clear state and controlled inputs

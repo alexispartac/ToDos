@@ -7,19 +7,23 @@ const { ObjectId } = mongodb;
 
  
     export const listOfUsers = async(req, res) => {
-        try{
-        
-            const users = await col.find({}).toArray((err, data) => {
-                if (err) {
-                    res.status(400).json({error: 'Something went wrong!'})
-                }
-                return res.json(data);
-            });
 
-            res.send({users})
-        }catch(error){
-            res.status(400).json({error: 'Something went wrong!'})
-        }
+        const adminId = req.headers.adminId;
+
+        if(adminId === 'onlyadmin')
+            return res
+                    .status(401)
+                    .json({message: 'Unauthorized!'})
+
+
+        const users = await col.find({}).toArray().catch(
+            (error) => res
+                        .status(400)
+                        .json({error: `Error-BE: ${error}`})              
+        );
+
+        return res.status(200).json({users});
+
     };
 
     export const loginUser = async(req, res) => {
@@ -27,9 +31,9 @@ const { ObjectId } = mongodb;
         const {username, password} = req.body;
 
         const userWithUsername = await col.findOne({user: username}).catch( 
-            (error) => {
-                console.log("Error-BE: ",  error)
-            }
+            (error) => res
+                        .status(400)
+                        .json({error: `Error-BE: ${error}`})              
         );
 
         if(!userWithUsername)
@@ -48,35 +52,40 @@ const { ObjectId } = mongodb;
 
     }
 
-    export const addNewUser = async(req, res) => {
+    export const registerUser = async(req, res) => {
 
         const newUser = req.body;
-    
-        try{
-    
-            await col.insertOne(new Object({...newUser, tasks: []}));
-    
-            res.send(newUser);
-    
-        }catch(error){
-            res.status(405).json({error: "Something went wrong!"})
-        }
-    
+
+        await col.insertOne(new Object({...newUser, tasks: []})).catch(
+            (error) => res
+                    .status(400)
+                    .json({error: `Error-BE: ${error}`})              
+        );
+
+        return res.status(200).json({newUser});
+
     }
     
     export const deleteUser = async(req, res) => {
     
-        try{
+        const adminId = req.headers.adminId;
+        const userId = req.query.userId;
+
+        if(adminId === 'onlyadmin')
+            return res
+                    .status(401)
+                    .json({message: 'Unauthorized!'})
+
+
             
-            await col.deleteOne({_id : new ObjectId(`${req.headers._id}`)});
-    
-            res.send({message: 'Success delete!'})
-    
-        }catch(error){
-            res.status(405).json({message: 'Something went wrong!'})
-            console.log(error)
-        }
-    
+        await col.deleteOne({_id : new ObjectId(`${userId}`)}).catch(
+            (error) => res
+                    .status(400)
+                    .json({error: `Error-BE: ${error}`})              
+        );
+
+        return res.status(200).json({message: 'Success delete!'})
+
     } 
 
 
