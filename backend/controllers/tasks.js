@@ -36,21 +36,6 @@ export const listOfTasks = async(req, res) => {
 
 }
 
-export const completeTask = async(req, res) => {
-
-    const {idUser, idTask}= req.params;
-
-    try{
-        await col.updateOne(
-            { _id: new ObjectId(idUser) },
-            { $set: { "tasks.$[elem].completeTask":  true} },
-            { arrayFilters: [ { "elem.id":  idTask} ] }
-          )
-    }catch(error){
-        res.status(405).json({message: "Can't update task!"})
-    }
-}
-
 export const deleteTask = async(req, res) => {
 
     const data = req.query;

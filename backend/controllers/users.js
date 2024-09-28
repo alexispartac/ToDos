@@ -5,8 +5,7 @@ const client = new MongoClient(uri);
 const col = client.db("private").collection("users");
 const { ObjectId } = mongodb;
 
-
-
+ 
     export const listOfUsers = async(req, res) => {
         try{
         
@@ -23,20 +22,29 @@ const { ObjectId } = mongodb;
         }
     };
 
-    export const findUser = async(req, res) => {
+    export const loginUser = async(req, res) => {
 
-        const user = req.query;
-        console.log(1, user)
-        try{
-            const findUser = await col.findOne({user: user.username, pwd: user.password});
-            if(!findUser)
-                res.status(404).json({message: "User don t find!"});
-            else 
-                res.status(200).json({user:findUser});
-            console.log(findUser)
-        }catch(error){
-            res.status(404).json({error: "Something went wrong!"});
-        }
+        const {username, password} = req.body;
+
+        const userWithUsername = await col.findOne({user: username}).catch( 
+            (error) => {
+                console.log("Error-BE: ",  error)
+            }
+        );
+
+        if(!userWithUsername)
+            return res
+                .status(400)
+                .json({message: "Username or password doesn't match!"});
+
+        if(!userWithUsername.pwd === password)
+            return res
+                .status(400)
+                .json({message: "Username or password doesn't match!"});
+
+        // add token jwtToken in loc de x-userId
+
+        return res.status(200).json({message: "Succes!", xuserId: userWithUsername._id})
 
     }
 

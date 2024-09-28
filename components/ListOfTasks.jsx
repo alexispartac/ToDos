@@ -12,7 +12,7 @@ export default function ListOfTasks({userID}){
         <div className="list-of-tasks">
             <section>
                 <h2 style={{borderBottom:"2px solid"}}>Tasks</h2>
-                { listTasks.map( (task, index) => <Task id={index} task={task} userID={userID} />
+                { listTasks.map( (task, index) => <Task key={index} task={task} userID={userID} />
             )}
             </section>
         </div>
