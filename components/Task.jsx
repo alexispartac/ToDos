@@ -3,24 +3,29 @@ import { useContext, useState} from "react";
 import { ListContext } from "../Context/ModuleContext";
 import axios from "axios";
 
-const DELETE_TASK_URL = 'http://localhost:8080/tasks/deletetask'
+const DELETE_TASK_URL = 'http://localhost:8080/tasks'
 
 export default function Task({task, userID}){
     const { deleteTask } = useContext(ListContext) 
     const [ checked, setChecked ] = useState(false)
 
     async function deleteTaskfromDB(){
+
         try {
+
             await axios.delete(DELETE_TASK_URL, {
+                headers : {
+                    userID: userID
+                }, 
                 params: {
-                    userID: userID, 
                     task: task.text
                 }
             })
-            console.log(`${task.text} a fost sters!`)
+
+            console.log(`${task.text} was delete!`)
         } catch (error) {
             console.log(error); 
-            alert('Task ul nu a fost sters!')
+            alert('The task was not delete!')
         }
     }
 
