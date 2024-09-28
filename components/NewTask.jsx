@@ -9,21 +9,25 @@ export default function NewTask({userID}) {
     const {addTaskToList} = useContext(ListContext)
 
     const addTask = async(item) =>{
+
         try{
-            await axios.patch("http://localhost:8080/tasks/newtask", 
+
+            await axios.patch("http://localhost:8080/tasks", 
                 {"task": item},
                 {
-                    params : {
-                        "userID": userID
+                    headers : {
+                        "userId": userID
                     }
                 }
             )
+            
             console.log(item)
+
         }catch (error) {
             if (!error.response) {
-              console.log('Network error:', error);
+                console.log('Network error:', error);
             } else {
-              console.log('Error response:', error.response);
+                console.log('Error response:', error.response);
             }
         }
     }
