@@ -4,7 +4,7 @@ import axios from 'axios';
 import "./login.css"
 
 
-const LOGIN_URL = 'http://localhost:8080/users/login'
+const LOGIN_URL = 'http://localhost:8080/users/'
 
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState('');
