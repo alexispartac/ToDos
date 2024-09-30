@@ -19,7 +19,7 @@ function LoginPage({ onLogin }) {
       )
           
       if(response.status === 200)
-          return response.data.xuserId;
+          return response.data.accessToken;
         
     }catch(error){
           console.log("Error-FE: ", error)
@@ -31,12 +31,12 @@ function LoginPage({ onLogin }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const xuserId = await verifyCredentials()
+    const accessToken = await verifyCredentials()
 
-    if(!xuserId)
+    if(!accessToken)
       setSuccess(false);
     else
-      onLogin(xuserId)
+      onLogin(accessToken)
 
     setUsername('');
     setPassword('');

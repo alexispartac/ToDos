@@ -1,13 +1,21 @@
 import mongodb, { MongoClient } from "mongodb"
+import jwt from 'jsonwebtoken'
 
 const uri = "mongodb://localhost:27017/";
 const client = new MongoClient(uri);
 const col = client.db("private").collection("users");
 const { ObjectId } = mongodb;
+const secretToken = '12345'
+
+function verifyToken(accessToken){
+    const token = jwt.verify(accessToken, secretToken);
+    return token._id;
+}
 
 
 export const addNewTask = async(req,res) => {
-    const userId = req.headers.userid;
+    const accessToken = req.headers.userid;
+    const userId = verifyToken(accessToken, secretToken)
 
     if(!userId){
         return res
@@ -38,8 +46,8 @@ export const addNewTask = async(req,res) => {
 }
 
 export const listOfTasks = async(req, res) => {
-
-    const userId = req.headers.userid;
+    const accessToken = req.headers.userid;
+    const userId = verifyToken(accessToken, secretToken);
 
     if(!userId){
         return res
@@ -57,8 +65,9 @@ export const listOfTasks = async(req, res) => {
 }
 
 export const deleteTask = async(req, res) => {
+    const accessToken = req.headers.userid;
+    const userId = verifyToken(accessToken, secretToken);
 
-    const userId = req.headers.userid;
     if(!userId){
         return res
         .status(401)
