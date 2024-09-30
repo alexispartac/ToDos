@@ -7,8 +7,8 @@ import WelcomePage from "../components/WelcomePage.jsx";
 export default function App(){
     const [token, setToken, removeToken] = useCookies(['user'])
 
-    function handleLogin(xuserid) {
-      setToken('user', xuserid, { path: '/' });
+    function handleLogin(accessToken) {
+      setToken('user', accessToken, { path: '/' });
     }
 
     function handleLogout() {
