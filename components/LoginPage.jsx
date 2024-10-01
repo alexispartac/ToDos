@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import "./login.css"
 
@@ -7,9 +7,22 @@ import "./login.css"
 const LOGIN_URL = 'http://localhost:8080/users/login'
 
 function LoginPage({ onLogin }) {
+  const usernameRef = useRef();
+  const errRef = useRef();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(true);
+
+  useEffect( () => {
+      usernameRef.current.focus();
+  }, []);
+
+  useEffect( () => {
+      setErrMsg('');
+  }, [username, password])
 
   async function verifyCredentials(){
 
@@ -33,8 +46,11 @@ function LoginPage({ onLogin }) {
 
     const xuserId = await verifyCredentials()
 
-    if(!xuserId)
-      setSuccess(false);
+    if(!xuserId){
+      setErrMsg("Username or password is wrong");
+      errRef.current.focus();
+      return setSuccess(false);
+    }
     else
       onLogin(xuserId)
 
@@ -43,27 +59,51 @@ function LoginPage({ onLogin }) {
   }
 
   return (
-    <>
-      <p className={!success ? 'errmess' : 'offscreen'}>Username or password is wrong!</p>
+    <div className='continer'>
+      <p ref={errRef} className={!success ? 'errmess' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <label htmlFor='username'>
+            Username:
         </label>
         <br />
-        <label>
+        <input 
+            type="text" 
+            id="username"
+            value={username}
+            ref={usernameRef}
+            required
+            autoComplete="off"
+            onChange={(e) => setUsername(e.target.value)} 
+        />
+        <br /><br />
+        <label htmlFor='password'>
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <br />
-        <input type="submit" value="Submit" />
+        <input 
+            type="password" 
+            id='password'
+            value={password}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <br />
+        <input 
+            type="submit" 
+            value="Submit" 
+            style={{padding:'10px'}}
+        />
       </form>
       <div>
       <p>
-          <a href="/SignIn.html">Sign In</a>
+          <a href="/SignIn.html" className='button-signin'> 
+                Sign In
+          </a>
       </p>
     </div>
-  </>
+  </div>
   )
 }
 
