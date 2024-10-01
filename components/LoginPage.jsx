@@ -4,7 +4,7 @@ import axios from 'axios';
 import "./login.css"
 
 
-const LOGIN_URL = 'http://localhost:8080/users/login'
+const LOGIN_URL = 'http://localhost:8080/users/'
 
 function LoginPage({ onLogin }) {
   const usernameRef = useRef();
@@ -32,7 +32,7 @@ function LoginPage({ onLogin }) {
       )
           
       if(response.status === 200)
-          return response.data.xuserId;
+          return response.data.accessToken;
         
     }catch(error){
           console.log("Error-FE: ", error)
@@ -44,15 +44,16 @@ function LoginPage({ onLogin }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const xuserId = await verifyCredentials()
+    const accessToken = await verifyCredentials()
 
-    if(!xuserId){
+
+    if(!accessToken){
       setErrMsg("Username or password is wrong");
       errRef.current.focus();
       return setSuccess(false);
     }
     else
-      onLogin(xuserId)
+      onLogin(accessToken)
 
     setUsername('');
     setPassword('');
