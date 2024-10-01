@@ -5,3 +5,18 @@
 .offscreen{
     display: none;
 }
+
+.continer{
+    text-align: center;
+    font-size: 30px;
+}
+
+.continer > form > input{
+    font-size: 25px;
+    padding: 5px;
+}
+
+.button-signin{
+    color: white;
+    text-decoration-line: none;
+}
