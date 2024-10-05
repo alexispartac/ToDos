@@ -1,13 +1,13 @@
 import mongodb, { MongoClient } from "mongodb"
 import jwt from 'jsonwebtoken'
+import {secretToken} from '../constants.js'
 
 const uri = "mongodb://localhost:27017/";
 const client = new MongoClient(uri);
 const col = client.db("private").collection("users");
 const { ObjectId } = mongodb;
-const secretToken = '12345'
 
-function verifyToken(accessToken){
+function verifyToken(accessToken, secretToken){
     const token = jwt.verify(accessToken, secretToken);
     return token._id;
 }

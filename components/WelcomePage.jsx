@@ -11,13 +11,13 @@ const button_logout = {
     // height:'30px',
 };
 
-export default function WelcomePage({userID, onLogout}) {
+export default function WelcomePage({userToken, onLogout}) {
 
     return (
         <div className="continer">
-            <ProviderList userID={userID}>
-                <ListOfTasks userID={userID}/>
-                <NewTask userID={userID}/> 
+            <ProviderList userID={userToken}>
+                <ListOfTasks userID={userToken}/>
+                <NewTask userID={userToken}/> 
             </ProviderList>  
             <button 
                 style={button_logout}

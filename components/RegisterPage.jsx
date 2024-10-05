@@ -1,15 +1,12 @@
-import { StrictMode } from "react";
+import React, { StrictMode, useRef, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-
-import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import axios from "axios";
 import './register.css'
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const USER_REGEX = /^[A-z][a-z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = 'http://localhost:8080/users/register';
 
 const Register = () => {
@@ -173,7 +170,7 @@ const Register = () => {
                             Must match the first password input field.
                         </p>
 
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        <button disabled={!!(!validName || !validPwd || !validMatch)}>Sign Up</button>
                     </form>
                     <p>
                         Already registered?<br />

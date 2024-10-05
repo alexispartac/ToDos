@@ -4,12 +4,12 @@ import {listOfUsers, registerUser, deleteUser, loginUser} from '../controllers/u
 const router = express.Router()           
 
 //
-router.get( '/' , listOfUsers);
+router.get( '/users/' , listOfUsers);
 
-router.post( '/', loginUser);
+router.post( '/login-tokens', loginUser);
 
-router.post( '/register/', registerUser);
+router.post( '/users/register/', registerUser);
 
-router.delete( '/remove/', deleteUser);
+router.delete( '/users/remove/', deleteUser);
 
 export default router;

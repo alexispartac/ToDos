@@ -4,7 +4,7 @@ import axios from 'axios';
 import "./login.css"
 
 
-const LOGIN_URL = 'http://localhost:8080/users/'
+const LOGIN_URL = 'http://localhost:8080/login-tokens'
 
 function LoginPage({ onLogin }) {
   const usernameRef = useRef();
@@ -30,10 +30,10 @@ function LoginPage({ onLogin }) {
       const response = await axios.post(LOGIN_URL,
           {username: username, password: password}
       )
+      console.log(typeof response.data.accessToken)
           
       if(response.status === 200)
           return response.data.accessToken;
-        
     }catch(error){
           console.log("Error-FE: ", error)
           return false;

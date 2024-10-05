@@ -18,7 +18,7 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/users', usersRoutes);
+app.use('/', usersRoutes);
 app.use('/tasks', tasksRoutes);
 
 

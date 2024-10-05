@@ -1,11 +1,12 @@
 import mongodb, { MongoClient } from "mongodb"
 import jwt from 'jsonwebtoken'
+import {secretToken} from '../constants.js'
 
 const uri = "mongodb://localhost:27017/";
 const client = new MongoClient(uri);
 const col = client.db("private").collection("users");
 const { ObjectId } = mongodb;
-const secretToken = '12345'
+
  
     export const listOfUsers = async(req, res) => {
 
@@ -50,7 +51,7 @@ const secretToken = '12345'
         delete userWithUsername.pwd;
         // add token jwtToken in loc de x-userId
         const token = jwt.sign(userWithUsername, secretToken, {expiresIn: "60d"})
-
+        console.log("aici", typeof token);
         return res.status(200).json({message: "Succes!", accessToken: token})
 
     }
