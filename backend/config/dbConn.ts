@@ -1,3 +1,6 @@
+
+// conectare la baza de date mongoDb 
+
 import mongoose from "mongoose";
 
 const URI ="mongodb://localhost:27017/";

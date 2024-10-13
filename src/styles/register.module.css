@@ -9,21 +9,20 @@
 html {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
-    color: #fff;
 }
 
 body {
     min-height: 100vh;
-    background-color: dodgerblue;
+    background-color: rgba(208, 208, 234, 0.789);
 }
 
 .App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; 
-  padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    padding: 1rem 0.5rem;
 }
 
 section {
@@ -37,6 +36,9 @@ section {
     background-color: rgba(0,0,0,0.4);
     margin: auto;
     align-items: center;
+    border: 0px solid rgb(87, 87, 87);
+    border-radius: 10%;
+    box-shadow: rgb(87, 87, 87) 3px 5px 10px;
 }
 
 form {

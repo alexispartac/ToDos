@@ -1,14 +1,12 @@
-
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
-import "./login.css"
-
+import styles from "../styles/login.module.css"
 
 const LOGIN_URL = 'http://localhost:8080/login-tokens'
 
-function LoginPage({ onLogin }) {
-  const usernameRef = useRef();
-  const errRef = useRef();
+function LoginPage({ onLogin, setUser }:Readonly<{onLogin: (elemnt: any) => any, setUser: any}>) {
+  const usernameRef: any = useRef();
+  const errRef: any = useRef();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -30,10 +28,15 @@ function LoginPage({ onLogin }) {
       const response = await axios.post(LOGIN_URL,
           {username: username, password: password}
       )
-      console.log(typeof response.data.accessToken)
-          
-      if(response.status === 200)
-          return response.data.accessToken;
+      
+      
+      if(response.status === 200){
+        setUser({
+          username : username,
+          password : password
+        })
+        return response.data.accessToken;
+      }
     }catch(error){
           console.log("Error-FE: ", error)
           return false;
@@ -41,7 +44,7 @@ function LoginPage({ onLogin }) {
 
   }
         
-  async function handleSubmit(event) {
+  async function handleSubmit(event: { preventDefault: () => void; } ) {
     event.preventDefault();
 
     const accessToken = await verifyCredentials()
@@ -60,9 +63,9 @@ function LoginPage({ onLogin }) {
   }
 
   return (
-    <div className='continer'>
-      <p ref={errRef} className={!success ? 'errmess' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
-      <h1>Login</h1>
+    <div className={styles.continer}>
+      <p ref={errRef} className={!success ? `${styles.errmess}` : `${styles.offscreen}`} aria-live={styles.assertive}>{errMsg}</p>
+      <h1 style={{margin:0}}>Login</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='username'>
             Username:
@@ -99,7 +102,7 @@ function LoginPage({ onLogin }) {
       </form>
       <div>
       <p>
-          <a href="/SignIn.html" className='button-signin'> 
+          <a href="../../SignIn.html" className={styles.buttonsignin}> 
                 Sign In
           </a>
       </p>

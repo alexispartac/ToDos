@@ -1,0 +1,30 @@
+.errmess{
+    color: red;
+}
+
+.offscreen{
+    display: none;
+}
+
+.continer{
+    width: 27%;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.4);
+    border: 0px solid black;
+    border-radius: 10%;
+    box-shadow: 3px 5px 10px rgb(87, 87, 87);
+}
+
+.continer > form > input{
+    font-size: 25px;
+    padding: 5px;
+}
+
+.buttonsignin{
+    color: rgb(255, 255, 255);
+    text-decoration-line: none;
+}

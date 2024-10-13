@@ -1,9 +1,9 @@
 import http from 'http'
 import express from 'express';                         
 import bodyParser from 'body-parser';             
-import usersRoutes from './backend/routes/usersRoutes.js';
-import tasksRoutes from './backend/routes/tasksRoutes.js';
-import connectDB from "./backend/config/dbConn.js"
+import usersRoutes from './backend/routes/usersRoutes.ts';
+import tasksRoutes from './backend/routes/tasksRoutes.ts';
+import connectDB from "./backend/config/dbConn.ts"
 import mongoose from 'mongoose';
 import cors from 'cors'
 
@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
     origin: 'http://localhost:5173', // permite accesul doar de la această origine
     methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'], // metodele permise
-    allowHeaders : ['Content-Type', 'Authorization'],
+    allowedHeaders: ['accesstoken', 'Content-Type', 'Authorization'],
     credentials: true
 }));
 app.use(bodyParser.json());
@@ -22,7 +22,7 @@ app.use('/', usersRoutes);
 app.use('/tasks', tasksRoutes);
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT ?? 8080;
 
 // Connect to MongoDB
 connectDB();
@@ -32,7 +32,7 @@ const server = http.createServer(app);
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
     // Connect to server
-    server.listen( PORT , (err) => {
+    server.listen( PORT , (err? : string) => {
         if (err) {
             console.log("Not connected to server: ", err);
         }

@@ -3,15 +3,15 @@ import { createRoot } from "react-dom/client";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import './register.css'
+import styles from '../styles/register.module.css'
 
 const USER_REGEX = /^[A-z][a-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = 'http://localhost:8080/users/register';
+const PWD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = 'http://localhost:8080/register';
 
-const Register = () => {
-    const userRef = useRef();
-    const errRef = useRef();
+const Register: React.FC<{}> = ():React.JSX.Element => {
+    const userRef : any = useRef();
+    const errRef : any = useRef();
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -45,7 +45,7 @@ const Register = () => {
         setErrMsg('');
     }, [user, pwd, matchPwd])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         // if button enabled with JS hack
         const v1 = USER_REGEX.test(user);
@@ -73,7 +73,7 @@ const Register = () => {
             setUser('');
             setPwd('');
             setMatchPwd('');
-        } catch (err) {
+        } catch (err: any) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
@@ -95,14 +95,14 @@ const Register = () => {
                     </p>
                 </section>
             ) : (
-                <section>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <section className={styles.section}>
+                    <p ref={errRef} className={errMsg ? `${styles.errmsg}` : `${styles.offscreen}`} aria-live="assertive">{errMsg}</p>
                     <h1>Register</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
                             Username:
-                            <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
+                            <FontAwesomeIcon icon={faCheck} className={validName ? `${styles.valid}` : `${styles.hide}`} />
+                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? `${styles.hide}` : `${styles.invalid}`} />
                         </label>
                         <input
                             type="text"
@@ -117,7 +117,7 @@ const Register = () => {
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
                         />
-                        <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
+                        <p id="uidnote" className={userFocus && user && !validName ? `${styles.instructions}` : `${styles.offscreen}`}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             4 to 24 characters.<br />
                             Must begin with a letter.<br />
@@ -127,8 +127,8 @@ const Register = () => {
 
                         <label htmlFor="password">
                             Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+                            <FontAwesomeIcon icon={faCheck} className={validPwd ? `${styles.valid}` : `${styles.hide}`} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? `${styles.hide}` : `${styles.invalid}`} />
                         </label>
                         <input
                             type="password"
@@ -141,7 +141,7 @@ const Register = () => {
                             onFocus={() => setPwdFocus(true)}
                             onBlur={() => setPwdFocus(false)}
                         />
-                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? `${styles.instructions}` : `${styles.offscreen}`}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             8 to 24 characters.<br />
                             Must include uppercase and lowercase letters, a number and a special character.<br />
@@ -151,8 +151,8 @@ const Register = () => {
 
                         <label htmlFor="confirm_pwd">
                             Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
+                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? `${styles.valid}` : `${styles.hide}`} />
+                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? `${styles.hide}` : `${styles.invalid}`} />
                         </label>
                         <input
                             type="password"
@@ -165,7 +165,7 @@ const Register = () => {
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
                         />
-                        <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                        <p id="confirmnote" className={matchFocus && !validMatch ? `${styles.instructions}` : `${styles.offscreen}`}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
@@ -176,7 +176,7 @@ const Register = () => {
                         Already registered?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="/index.html">Sign In</a>
+                            <a href="/index.html">Login</a>
                         </span>
                     </p>
                 </section>
@@ -187,7 +187,7 @@ const Register = () => {
 
 export default Register
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
     <StrictMode>
         <Register />
