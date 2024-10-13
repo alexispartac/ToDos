@@ -1,0 +1,104 @@
+
+*{
+    box-sizing: border-box;
+}
+
+.app{
+    width: 100%;
+    background-color: rgba(208, 208, 234, 0.789);
+}
+
+.header{
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid black;
+}
+
+.title{
+    width: 200px;
+    height: 100px;
+    float: left;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    align-content: center;
+    font-size: 30px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.auth{
+    width: 200px;
+    height: 100px;
+    float: right;
+    position: relative;
+}
+
+.buttonlogout{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.buttonuser{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 20px;
+    right: 100px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.tasks{
+    padding: 50px;
+    background-color: white;
+    width: 100%;
+    min-height: 519px;
+    max-height: 519px;
+    overflow-y: scroll;
+    overflow-x: unset;
+}
+
+.task{
+    width: 900px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    margin: auto;
+}
+
+.text{
+    font-size: x-large;
+    margin: 0;
+    display: inline;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttoncomplete{
+    float: right;
+    display: flex;
+    font-size: x-large;
+
+}
+
+.userinfo{
+    width: 150px;
+    height: 80px;
+    position: absolute;
+    right: 130px;
+    margin: auto;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    background-color: white;
+    box-shadow: 2px 5px 10px rgb(80, 80, 80);
+}
+
+.userinfo > p{
+    margin: 0;
+}

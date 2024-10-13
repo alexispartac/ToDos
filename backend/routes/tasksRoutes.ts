@@ -1,12 +1,11 @@
 import express from 'express'; 
-import {listOfTasks, addNewTask, deleteTask} from '../controllers/tasks.js'
+import {listOfTasks, addNewTask, deleteTask} from '../controllers/tasks.ts'
 
 const router = express.Router()           
 
-//
 router.get( '/', listOfTasks)
 
-router.patch( '/', addNewTask);
+router.post( '/', addNewTask);
 
 router.delete( '/', deleteTask);
 
