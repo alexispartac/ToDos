@@ -1,5 +1,5 @@
 import express from 'express'; 
-import {listOfTasks, addNewTask, deleteTask} from '../controllers/tasks.ts'
+import {listOfTasks, addNewTask, deleteTask} from '../api/tasks.ts'
 
 const router = express.Router()           
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TProps } from "../@types/props"
 import axios from "axios"; 
-import styles from '../styles/styles.module.css'
+import styles from '../features/WelcomePage/styles.module.css'
 
 const DELETE_TASK_URL = 'http://localhost:8080/tasks';
 

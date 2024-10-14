@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
-import styles from "../styles/login.module.css"
+import styles from "./login.module.css"
 
 const LOGIN_URL = 'http://localhost:8080/login-tokens'
 
@@ -102,7 +102,7 @@ function LoginPage({ onLogin, setUser }:Readonly<{onLogin: (elemnt: any) => any,
       </form>
       <div>
       <p>
-          <a href="../../SignIn.html" className={styles.buttonsignin}> 
+          <a href="/src/features/Register/Register.html" className={styles.buttonsignin}> 
                 Sign In
           </a>
       </p>

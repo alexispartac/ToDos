@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import styles from '../styles/register.module.css'
+import styles from './register.module.css'
 
 const USER_REGEX = /^[A-z][a-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%]).{8,24}$/;

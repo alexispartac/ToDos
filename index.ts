@@ -1,9 +1,9 @@
 import http from 'http'
 import express from 'express';                         
 import bodyParser from 'body-parser';             
-import usersRoutes from './backend/routes/usersRoutes.ts';
-import tasksRoutes from './backend/routes/tasksRoutes.ts';
-import connectDB from "./backend/config/dbConn.ts"
+import usersRoutes from './src/routes/usersRoutes.ts';
+import tasksRoutes from './src/routes/tasksRoutes.ts';
+import connectDB from "./src/locales/config/dbConn.ts"
 import mongoose from 'mongoose';
 import cors from 'cors'
 

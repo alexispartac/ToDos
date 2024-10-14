@@ -1,8 +1,8 @@
 import * as React from "react";
-import { TaskContext } from "../Context/todoContext.tsx";
+import { TaskContext } from "../features/Context/todoContext.tsx";
 import {TaskContextType, ITask} from "../@types/task"
 import Task from "./Task.tsx"
-import styles from '../styles/styles.module.css'
+import styles from '../features/WelcomePage/styles.module.css'
 
 
 const Tasks: React.FC<{userToken: string}> = ({userToken}) => {

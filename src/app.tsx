@@ -1,7 +1,7 @@
 import * as React from "react"
-import LoginPage from './components/LoginPage.tsx'
+import LoginPage from './features/Login/LoginPage.tsx'
 import { CookiesProvider, useCookies} from 'react-cookie'
-import WelcomePage from "./components/WelcomePage.tsx";
+import WelcomePage from "./features/WelcomePage/WelcomePage.tsx";
 import { User } from 'src/@types/user';
 
 export default function App(){

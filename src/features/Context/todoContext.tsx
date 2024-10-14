@@ -1,8 +1,8 @@
 import * as React from "react"
-import { TaskContextType, ITask } from "../@types/task"
-import { Props } from "../@types/props"
-import axios from "axios"
+import { TaskContextType, ITask } from "../../@types/task"
+import { Props } from "../../@types/props"
 import uuid4 from 'uuid4'
+import axios from "axios"
 
 
 export const TaskContext = React.createContext<TaskContextType | null>(null);
@@ -11,7 +11,6 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     const [loading, setLoading] = React.useState<boolean>(true);
     const [tasks, setTasks] = React.useState<ITask[]>([]);
 
-    
     /***** The list of tasks from DB *****/
     const getTasks = async() => {
         try {
@@ -37,7 +36,7 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     React.useEffect(() => {
         getTasks();
     }, []);
-    
+
     if(loading){
         return <p>Loading...</p>;
     }

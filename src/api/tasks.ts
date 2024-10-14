@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb"
 import jwt from 'jsonwebtoken'
-import { secretToken } from '../../src/constants.ts'
+import { secretToken } from '../constants.ts'
 import { BTask, ITask } from "src/@types/task";
 import { TRes, TReq } from "src/@types/server";
 

@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb"
 import jwt from 'jsonwebtoken'
-import { secretToken } from '../../src/constants.ts'
+import { secretToken } from '../constants.ts'
 import { URes, UReq } from "src/@types/server";
 import { User } from "src/@types/user";
 
