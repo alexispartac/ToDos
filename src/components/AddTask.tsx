@@ -3,12 +3,18 @@ import { TaskContext } from "../features/Context/todoContext.tsx";
 import { TaskContextType, ITask } from '../@types/task';
 import axios from "axios";
 import styles from '../features/WelcomePage/styles.module.css'
-
+import { memo } from "react";
 
 
 const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     const [formData, setFormData] = React.useState<string>('') ;
     const { saveTask } = React.useContext(TaskContext) as TaskContextType;
+    const search : React.MutableRefObject<any>= React.useRef()
+
+
+    React.useEffect( () => {
+        search.current.focus();
+    }, [])
 
     const addTask = async(task: ITask) =>{
 
@@ -45,7 +51,7 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
         <div className="new-task" style={{width:"100%"}}>
             <form style={{width:"inherit"}} onSubmit={e => hendleSubmit(e, formData)}>
 
-                <input type="text" id="description" placeholder="New task..." onChange={e => setFormData(e.target.value) } value={formData}
+                <input type="text" id="description" ref={search} placeholder="New task..." onChange={e => setFormData(e.target.value) } value={formData}
                     className={styles.inputdata} 
                 />
                 <input type="submit" disabled={ formData === '' } style={{width:"10%", height:"30px"}}/>
@@ -54,4 +60,4 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     );
 }
 
-export default NewTask;
+export default memo(NewTask);
