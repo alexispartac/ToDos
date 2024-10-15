@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const GET_DATA_URL = "http://localhost:8080/tasks";
+
 export const getTasks = async(userToken : string)  => {
     try {
-        const response = await axios.get("http://localhost:8080/tasks", 
+        const response = await axios.get(GET_DATA_URL, 
             {
                 headers : {
                     accessToken: userToken

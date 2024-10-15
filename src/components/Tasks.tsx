@@ -26,5 +26,5 @@ const Tasks: React.FC<{userToken: string}> = ({userToken}) => {
     );
 
 }
-// memo folosit pentru a impiedica randarea componentei daca state ul nu se schimba
+
 export default memo(Tasks);

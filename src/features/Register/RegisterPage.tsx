@@ -47,7 +47,7 @@ const Register: React.FC<{}> = ():React.JSX.Element => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        // if button enabled with JS hack
+        
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
@@ -65,11 +65,8 @@ const Register: React.FC<{}> = ():React.JSX.Element => {
                 }
             );
             console.log(response.data);
-            //console.log(response.accessToken);
             console.log(JSON.stringify(response))
             setSuccess(true);
-            //clear state and controlled inputs
-            //need value attrib on inputs for this
             setUser('');
             setPwd('');
             setMatchPwd('');
@@ -175,7 +172,6 @@ const Register: React.FC<{}> = ():React.JSX.Element => {
                     <p>
                         Already registered?<br />
                         <span className="line">
-                            {/*put router link here*/}
                             <a href="/index.html">Login</a>
                         </span>
                     </p>

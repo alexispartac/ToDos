@@ -12,7 +12,7 @@ const col = client.db("public").collection("tasks");
 /***** Verification function for tokenaccess return _id-User from DB *****/
 function verifyToken(accessToken: string, secretToken: string): string{
     let token = jwt.verify(accessToken, secretToken);
-    return JSON.stringify(token);        // ._id
+    return JSON.stringify(token);        
 }
 
 /***** *****/
@@ -27,7 +27,6 @@ export const addNewTask : any = async(req: TReq, res: TRes) => {
                 .json({message: 'Unauthorized!'});
     }
 
-    // req.body va avea description, status, si id
     const task : BTask = {userId : userId, ...req.body}
     await col.insertOne(task).catch(
         () => res
@@ -62,9 +61,6 @@ export const listOfTasks : any = async(req : TReq, res : TRes) => {
 
 /***** *****/
 
-/***** Update task *****/
-
-/***** *****/
 
 /***** Delete task *****/
 export const deleteTask: any = async(req: TReq, res: TRes) => {

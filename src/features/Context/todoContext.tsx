@@ -4,9 +4,9 @@ import { Props } from "../../@types/props"
 import uuid4 from 'uuid4'
 import axios from "axios"
 
+const GET_TASKS_URL = "http://localhost:8080/tasks"
 
 export const TaskContext = React.createContext<TaskContextType | null>(null);
-
 export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     const [loading, setLoading] = React.useState<boolean>(true);
     const [tasks, setTasks] = React.useState<ITask[]>([]);
@@ -14,7 +14,7 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     /***** The list of tasks from DB *****/
     const getTasks = async() => {
         try {
-            const response = await axios.get("http://localhost:8080/tasks", 
+            const response = await axios.get(GET_TASKS_URL, 
                 {
                     headers : {
                         accessToken: userToken
@@ -44,12 +44,12 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
 /*****  *****/
 
 /***** Task's actions *****/
-const saveTask = (task: ITask) => {
-    const newTask : ITask = {
-            id: uuid4(),
-            description: task.description,
-            status: false
-        }
+    const saveTask = (task: ITask) => {
+        const newTask : ITask = {
+                id: uuid4(),
+                description: task.description,
+                status: false
+            }
         setTasks([ ...tasks, newTask])
         return newTask;
     }
@@ -60,14 +60,6 @@ const saveTask = (task: ITask) => {
     }
     
     /***** *****/
-    
-    // const actionsTask : TaskContextType = React.useMemo( () => (
-    //     {
-    //         tasks,
-    //         saveTask,
-    //         deleteTask
-    //     }), 
-    //     []);
 
     const actionsTask : TaskContextType = {
                 tasks,

@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb"
 import jwt from 'jsonwebtoken'
-import { secretToken } from '../constants.ts'
+import { secretToken } from '../../src/constants.ts'
 import { URes, UReq } from "src/@types/server";
 import { User } from "src/@types/user";
 
@@ -33,28 +33,27 @@ export const listOfUsers: any = async(req: UReq, res: URes) => {
 /***** Login user *****/
 export const loginUser: any = async(req: UReq, res: URes) => {
     const {username , password }: User = req.body;
-    // userWithUsername e un obiect, un user din baza de date
-    const userWithUsername = await col.findOne({user: username}).catch( 
+    
+    const User = await col.findOne({user: username}).catch( 
         (error) => res
                     .status(400)
                     .json({error: `Error-BE: ${error}`})              
     );                                                                      
     
-    if(!userWithUsername)
+    if(!User)
         return res
             .status(400)
             .json({message: "Username or password doesn't match!"});
 
-    if(userWithUsername.pwd !== password)
+    if(User.pwd !== password)
         return res
             .status(400)
             .json({message: "Username or password doesn't match!"});
 
     
-    delete userWithUsername.pwd;
+    delete User.pwd;
     
-    // add token jwtToken in loc de x-userId
-    const token = jwt.sign({userId: userWithUsername._id.toString()}, secretToken, {expiresIn: "60d"})
+    const token = jwt.sign({userId: User._id.toString()}, secretToken, {expiresIn: "60d"})
     
     return res.status(200).json({message: "Succes!", accessToken: token})
 

@@ -1,5 +1,5 @@
 import express from 'express'; 
-import {listOfUsers, registerUser, deleteUser, loginUser} from '../api/users.ts'
+import {listOfUsers, registerUser, deleteUser, loginUser} from '../api/users'
 
 const router = express.Router()           
 

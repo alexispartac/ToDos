@@ -19,11 +19,8 @@ const Task: React.FC<TProps> = ({task, deleteTask, userToken}) => {
                 }
             })
 
-            console.log(`${task.description.toUpperCase()} was delete!`);
-
         } catch (error) {
-            console.log(error); 
-            alert('The task was not delete!')
+            alert('The task was not deleted!')
         }
 
         deleteTask(task.id)

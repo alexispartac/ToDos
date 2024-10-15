@@ -5,6 +5,7 @@ import axios from "axios";
 import styles from '../features/WelcomePage/styles.module.css'
 import { memo } from "react";
 
+const ADD_TASK_URL = "http://localhost:8080/tasks";
 
 const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     const [formData, setFormData] = React.useState<string>('') ;
@@ -19,7 +20,7 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     const addTask = async(task: ITask) =>{
 
         try{ 
-            await axios.post("http://localhost:8080/tasks", 
+            await axios.post(ADD_TASK_URL, 
                 task,
                 {
                     headers : {
@@ -27,7 +28,6 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
                     }
                 }
             )
-            console.log(task)
 
         }catch (error: any) {
             if (!error.response) {

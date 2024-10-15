@@ -32,8 +32,8 @@ function LoginPage({ onLogin, setUser }:Readonly<{onLogin: (elemnt: any) => any,
       
       if(response.status === 200){
         setUser({
-          username : username,
-          password : password
+            username : username,
+            password : password
         })
         return response.data.accessToken;
       }
