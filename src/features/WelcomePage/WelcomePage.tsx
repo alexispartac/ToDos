@@ -14,6 +14,9 @@ type Props = {
 const WelcomePage : React.FC<Props> = ({userToken, onLogout, user}) => {
     const [on, setOn] = React.useState(false);
     
+    const handleClick = () => setOn(!on);
+    
+
     return (
         <div className={styles.app}>
                 <section className={styles.header}>
@@ -21,7 +24,7 @@ const WelcomePage : React.FC<Props> = ({userToken, onLogout, user}) => {
                     <section className={styles.auth}>
                         <button
                             className={styles.buttonuser}
-                            onClick={() => setOn(!on)}                            
+                            onClick={handleClick}                            
                             >  User
                         </button>
                         {

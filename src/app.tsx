@@ -1,29 +1,11 @@
 import * as React from "react"
 import LoginPage from './features/Login/LoginPage.tsx'
-import { CookiesProvider, useCookies} from 'react-cookie'
+import { CookiesProvider } from 'react-cookie'
 import WelcomePage from "./features/WelcomePage/WelcomePage.tsx";
-import { User } from 'src/@types/user';
+import ConnectUser from "./utilss/hooks/ConnectUser.tsx";
 
 export default function App(){
-    const [token, setToken, removeToken] = useCookies(['user'])
-    const [user, setUser] = React.useState<User>(
-        {
-            username: '',
-            password: ''
-        }
-    )
-    
-    React.useEffect( () => {
-        removeToken('user');
-    }, [])
-
-    function handleLogin(accessToken: string) {
-        setToken('user', accessToken, { path: '/' });
-    }
-
-    function handleLogout() {
-        removeToken('user');
-    }
+    const {token, user, setUser, handleLogin, handleLogout}= ConnectUser();
     
     return (
 

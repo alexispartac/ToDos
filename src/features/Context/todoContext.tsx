@@ -11,7 +11,10 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     const [loading, setLoading] = React.useState<boolean>(true);
     const [tasks, setTasks] = React.useState<ITask[]>([]);
 
+
     /***** The list of tasks from DB *****/
+
+    // change that with a function 
     const getTasks = async() => {
         try {
             const response = await axios.get(GET_TASKS_URL, 
@@ -36,20 +39,16 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     React.useEffect(() => {
         getTasks();
     }, []);
-
-    if(loading){
-        return <p>Loading...</p>;
-    }
     
-/*****  *****/
-
-/***** Task's actions *****/
+    /*****  *****/
+    
+    /***** Task's actions *****/
     const saveTask = (task: ITask) => {
         const newTask : ITask = {
-                id: uuid4(),
-                description: task.description,
-                status: false
-            }
+            id: uuid4(),
+            description: task.description,
+            status: false
+        }
         setTasks([ ...tasks, newTask])
         return newTask;
     }
@@ -60,16 +59,21 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     }
     
     /***** *****/
-
-    const actionsTask : TaskContextType = {
-                tasks,
-                saveTask,
-                deleteTask
-            }
     
+    const actionsTask = React.useMemo(() => ({
+        tasks,
+        saveTask,
+        deleteTask
+    }), [tasks])
+    
+    
+    if(loading){
+        return <p>Loading...</p>;
+    }
+        
     return (
-        <TaskContext.Provider value={actionsTask}>
-            {children}
-        </TaskContext.Provider>
+    <TaskContext.Provider value={actionsTask}>
+        {children}
+    </TaskContext.Provider>
     );
 }
