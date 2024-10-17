@@ -11,8 +11,8 @@ import cors from 'cors'
 // app
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173', // permite accesul doar de la această origine
-    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'], // metodele permise
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'], 
     allowedHeaders: ['accesstoken', 'Content-Type', 'Authorization'],
     credentials: true
 }));

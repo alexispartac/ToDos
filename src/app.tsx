@@ -7,6 +7,10 @@ import ConnectUser from "./utilss/hooks/ConnectUser.tsx";
 export default function App(){
     const {token, user, setUser, handleLogin, handleLogout}= ConnectUser();
     
+    React.useEffect(() => {
+        handleLogout()
+    },[]);
+
     return (
 
         <div>

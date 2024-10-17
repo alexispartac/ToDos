@@ -42,16 +42,19 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
         e.preventDefault();
         const newTask = saveTask({description: formData, status: false, id: '' });
         addTask(newTask);
-
         setFormData('')
     }
+
+    const handleChange = React.useCallback( (e:  React.ChangeEvent<HTMLInputElement>) => {
+        setFormData(e.target.value);
+    }, [formData])
 
 
     return ( 
         <div className="new-task" style={{width:"100%"}}>
             <form style={{width:"inherit"}} onSubmit={e => hendleSubmit(e, formData)}>
 
-                <input type="text" id="description" ref={search} placeholder="New task..." onChange={e => setFormData(e.target.value) } value={formData}
+                <input type="text" id="description" ref={search} placeholder="New task..." onChange={e => handleChange(e) } value={formData}
                     className={styles.inputdata} 
                 />
                 <input type="submit" disabled={ formData === '' } style={{width:"10%", height:"30px"}}/>

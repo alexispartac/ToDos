@@ -2,61 +2,49 @@ import * as React from "react"
 import { TaskContextType, ITask } from "../../@types/task"
 import { Props } from "../../@types/props"
 import uuid4 from 'uuid4'
-import axios from "axios"
-
-const GET_TASKS_URL = "http://localhost:8080/tasks"
+import { getTasks } from "../../utilss/functions/getData"
 
 export const TaskContext = React.createContext<TaskContextType | null>(null);
 export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
-    const [loading, setLoading] = React.useState<boolean>(true);
+    const [status, setStatus] = React.useState('idle');
     const [tasks, setTasks] = React.useState<ITask[]>([]);
 
 
     /***** The list of tasks from DB *****/
 
-    // change that with a function 
-    const getTasks = async() => {
-        try {
-            const response = await axios.get(GET_TASKS_URL, 
-                {
-                    headers : {
-                        accessToken: userToken
-                    }
-                }
-            );
-            
-            setTasks([...tasks, ...response.data.tasks]);
-            setLoading(false);
-        }catch(error : any) {
-            if (!error.response) {
-                console.log('Network error:', error);
-            } else {
-                console.log('Error response:', error);
-            }
-        }
-    };
-    
-    React.useEffect(() => {
-        getTasks();
-    }, []);
-    
+    React.useLayoutEffect( () => {
+        setStatus('panding')
+        setTimeout( () => {
+            getTasks(userToken).then(data => {
+                setTasks([...data, ...tasks]);
+                setStatus('successful')
+            }).catch(() => {
+                setStatus('rejected')
+            })
+        }, 2000)
+    }, [])
+
     /*****  *****/
     
     /***** Task's actions *****/
-    const saveTask = (task: ITask) => {
-        const newTask : ITask = {
-            id: uuid4(),
-            description: task.description,
-            status: false
+    const saveTask = React.useCallback( 
+        (task: ITask) => {
+            const newTask : ITask = {
+                id: uuid4(),
+                description: task.description,
+                status: false
+            }
+            setTasks([ ...tasks, newTask])
+            return newTask;
         }
-        setTasks([ ...tasks, newTask])
-        return newTask;
-    }
+    , [tasks]);
     
     
-    const deleteTask = (id: string) => { 
-        setTasks(tasks.filter((task: ITask) => task.id !== id)) 
-    }
+    const deleteTask = React.useCallback(
+        (id: string) => { 
+            setTasks(tasks.filter((task: ITask) => task.id !== id)) 
+        }
+    ,[tasks]);
     
     /***** *****/
     
@@ -67,8 +55,12 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     }), [tasks])
     
     
-    if(loading){
-        return <p>Loading...</p>;
+    if(status === 'idle' || status === 'panding'){
+        return <p>Is Loading...</p>;
+    }
+    
+    if(status === 'rejected'){
+        return <p>An error occurred!</p>;
     }
         
     return (
