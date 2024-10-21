@@ -1,14 +1,32 @@
 import * as React from "react"
 import { TaskContextType, ITask } from "../../@types/task"
 import { Props } from "../../@types/props"
-import uuid4 from 'uuid4'
 import { getTasks } from "../../utilss/functions/getData"
+import tasksReductor from "../../utilss/functions/tasksReductor"
 
 export const TaskContext = React.createContext<TaskContextType | null>(null);
 export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     const [status, setStatus] = React.useState('idle');
-    const [tasks, setTasks] = React.useState<ITask[]>([]);
+    const [tasks, dispach] = React.useReducer(tasksReductor, []);
 
+    /***** Task's actions *****/
+    const saveTask = React.useCallback( 
+        (task: ITask) => 
+            dispach({
+                description : task.description, type: 'addtask'
+            })
+        , [tasks]);
+    
+    
+    const deleteTask = React.useCallback(
+        (id: string) => { 
+            dispach(
+                {id : id, type: 'deletetask'}
+            )
+        }
+    ,[tasks]);
+    
+    /***** *****/
 
     /***** The list of tasks from DB *****/
 
@@ -16,7 +34,7 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
         setStatus('panding')
         setTimeout( () => {
             getTasks(userToken).then(data => {
-                setTasks([...data, ...tasks]);
+                dispach({type: 'addtaskssave', data: data})
                 setStatus('successful')
             }).catch(() => {
                 setStatus('rejected')
@@ -26,33 +44,12 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
 
     /*****  *****/
     
-    /***** Task's actions *****/
-    const saveTask = React.useCallback( 
-        (task: ITask) => {
-            const newTask : ITask = {
-                id: uuid4(),
-                description: task.description,
-                status: false
-            }
-            setTasks([ ...tasks, newTask])
-            return newTask;
-        }
-    , [tasks]);
-    
-    
-    const deleteTask = React.useCallback(
-        (id: string) => { 
-            setTasks(tasks.filter((task: ITask) => task.id !== id)) 
-        }
-    ,[tasks]);
-    
-    /***** *****/
     
     const actionsTask = React.useMemo(() => ({
         tasks,
         saveTask,
         deleteTask
-    }), [tasks])
+    }), [])
     
     
     if(status === 'idle' || status === 'panding'){
