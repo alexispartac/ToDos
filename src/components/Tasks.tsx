@@ -6,7 +6,7 @@ import styles from '../features/WelcomePage/styles.module.css'
 import { memo } from "react";
 
 const Tasks: React.FC<{userToken: string}> = ({userToken}) => {
-    const tasks = useTasks();
+    const tasks : ITask[] = useTasks();
     
     return (
         <div >

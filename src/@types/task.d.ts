@@ -10,12 +10,7 @@ export interface BTask extends ITask {
     _id?: any;
 }
 
-export type TaskContextType = {
-    tasks: ITask[];
-};
-
-export type TaskDispatch = 
-    | { description: string; type: 'add' }
-    | { id: string; type: 'delete'}
-    | { data: any; type: 'tasks'};
+export type TaskDispatch =  | { description: string; type: 'add' }
+                            | { id: string; type: 'delete'}
+                            | { data: any; type: 'tasks'};
 

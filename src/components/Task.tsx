@@ -4,11 +4,12 @@ import axios from "axios";
 import styles from '../features/WelcomePage/styles.module.css'
 import { memo } from "react";
 import { useTaskDispatch } from "../features/Context/todoContext";
+import { TaskDispatch } from "src/@types/task";
 
 const DELETE_TASK_URL = 'http://localhost:8080/tasks';
 
 const Task: React.FC<TProps> = ({task, userToken}) => {
-    const dispatch = useTaskDispatch();
+    const dispatch: React.Dispatch<TaskDispatch> = useTaskDispatch();
 
     const handleDelete = async() => {
 

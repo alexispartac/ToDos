@@ -4,6 +4,7 @@ import { ITask } from '../@types/task';
 import axios from "axios";
 import styles from '../features/WelcomePage/styles.module.css'
 import { memo } from "react";
+import uuid4 from "uuid4";
 
 const ADD_TASK_URL = "http://localhost:8080/tasks";
 
@@ -40,8 +41,8 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     
     const hendleSubmit = (e: React.FormEvent, formData: any) : void => {
         e.preventDefault();
-        const newTask = dispatch({description: formData, type: "add"});
-        addTask(newTask);
+        dispatch({description: formData, type: "add"});
+        addTask({description: formData, status:false, id: uuid4()});
         setFormData('')
     }
 

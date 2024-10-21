@@ -17,7 +17,7 @@ const tasksReductor = (tasks: ITask[], action: TaskDispatch) => {
             return tasks.filter((task: ITask) => task.id !== action.id);
         } 
         case "tasks":{
-            return [...tasks, ...action.data];
+            return [...action.data];
         }
 
         default:

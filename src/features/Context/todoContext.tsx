@@ -9,7 +9,7 @@ export const TaskContext = React.createContext<ITask[] | []>([]);
 export const TaskDispatchContext = React.createContext<any>(null);
 
 export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
-    const [status, setStatus] = React.useState('idle');
+    const [status, setStatus]: [status: string, setStatus :  React.Dispatch<React.SetStateAction<string>>]= React.useState('idle');
     const [tasks, dispatch]: [tasks: ITask[], action: React.Dispatch<TaskDispatch>]= React.useReducer(tasksReducer, []);
 
     /***** The list of tasks from DB *****/
@@ -18,7 +18,7 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
         setStatus('panding')
         setTimeout( () => {
             getTasks(userToken).then(data => {
-                dispatch({type: 'tasks', data: data})
+                dispatch({type: 'tasks', data: data});
                 setStatus('successful')
             }).catch(() => {
                 setStatus('rejected')
