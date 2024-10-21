@@ -8,6 +8,5 @@ export type Props = {
 
 type TProps = {
     task: ITask;
-    deleteTask: (id: string) => void;
     userToken: string
 };

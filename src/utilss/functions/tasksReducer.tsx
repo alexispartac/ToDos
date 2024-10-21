@@ -1,14 +1,10 @@
-import { ITask } from "src/@types/task";
+import { ITask, TaskDispatch } from "src/@types/task";
 import uuid4 from 'uuid4'
 
-type ActionProp = 
-    | { description: string; type: 'addtask' }
-    | { id: string; type: 'deletetask'}
-    | { data: any; type: 'addtaskssave'};
-
-const tasksReductor = (tasks: ITask[], action: ActionProp) => {
+const tasksReductor = (tasks: ITask[], action: TaskDispatch) => {
+    
     switch (action.type) {
-        case "addtask":{
+        case "add":{
             return [ ...tasks, 
                 {
                     id: uuid4(),
@@ -17,10 +13,10 @@ const tasksReductor = (tasks: ITask[], action: ActionProp) => {
                 }
             ];
         }
-        case "deletetask":{
+        case "delete":{
             return tasks.filter((task: ITask) => task.id !== action.id);
         } 
-        case "addtaskssave":{
+        case "tasks":{
             return [...tasks, ...action.data];
         }
 

@@ -12,6 +12,10 @@ export interface BTask extends ITask {
 
 export type TaskContextType = {
     tasks: ITask[];
-    saveTask: (task: ITask) => any;
-    deleteTask: (id: string) => void;
 };
+
+export type TaskDispatch = 
+    | { description: string; type: 'add' }
+    | { id: string; type: 'delete'}
+    | { data: any; type: 'tasks'};
+

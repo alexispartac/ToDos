@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TaskContext } from "../features/Context/todoContext.tsx";
-import { TaskContextType, ITask } from '../@types/task';
+import { useTaskDispatch } from "../features/Context/todoContext.tsx";
+import { ITask } from '../@types/task';
 import axios from "axios";
 import styles from '../features/WelcomePage/styles.module.css'
 import { memo } from "react";
@@ -9,7 +9,7 @@ const ADD_TASK_URL = "http://localhost:8080/tasks";
 
 const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     const [formData, setFormData] = React.useState<string>('') ;
-    const { saveTask } = React.useContext(TaskContext) as TaskContextType;
+    const dispatch = useTaskDispatch();
     const search : React.MutableRefObject<any>= React.useRef()
 
 
@@ -40,7 +40,7 @@ const NewTask : React.FC<{userToken: string}> = ({userToken}) => {
     
     const hendleSubmit = (e: React.FormEvent, formData: any) : void => {
         e.preventDefault();
-        const newTask = saveTask({description: formData, status: false, id: '' });
+        const newTask = dispatch({description: formData, type: "add"});
         addTask(newTask);
         setFormData('')
     }

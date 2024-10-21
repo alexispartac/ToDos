@@ -1,32 +1,16 @@
 import * as React from "react"
-import { TaskContextType, ITask } from "../../@types/task"
+import { ITask, TaskDispatch} from "../../@types/task"
 import { Props } from "../../@types/props"
 import { getTasks } from "../../utilss/functions/getData"
-import tasksReductor from "../../utilss/functions/tasksReductor"
+import tasksReducer from "../../utilss/functions/tasksReducer"
 
-export const TaskContext = React.createContext<TaskContextType | null>(null);
+
+export const TaskContext = React.createContext<ITask[] | []>([]);
+export const TaskDispatchContext = React.createContext<any>(null);
+
 export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     const [status, setStatus] = React.useState('idle');
-    const [tasks, dispach] = React.useReducer(tasksReductor, []);
-
-    /***** Task's actions *****/
-    const saveTask = React.useCallback( 
-        (task: ITask) => 
-            dispach({
-                description : task.description, type: 'addtask'
-            })
-        , [tasks]);
-    
-    
-    const deleteTask = React.useCallback(
-        (id: string) => { 
-            dispach(
-                {id : id, type: 'deletetask'}
-            )
-        }
-    ,[tasks]);
-    
-    /***** *****/
+    const [tasks, dispatch]: [tasks: ITask[], action: React.Dispatch<TaskDispatch>]= React.useReducer(tasksReducer, []);
 
     /***** The list of tasks from DB *****/
 
@@ -34,7 +18,7 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
         setStatus('panding')
         setTimeout( () => {
             getTasks(userToken).then(data => {
-                dispach({type: 'addtaskssave', data: data})
+                dispatch({type: 'tasks', data: data})
                 setStatus('successful')
             }).catch(() => {
                 setStatus('rejected')
@@ -43,14 +27,6 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     }, [])
 
     /*****  *****/
-    
-    
-    const actionsTask = React.useMemo(() => ({
-        tasks,
-        saveTask,
-        deleteTask
-    }), [])
-    
     
     if(status === 'idle' || status === 'panding'){
         return <p>Is Loading...</p>;
@@ -61,8 +37,18 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
     }
         
     return (
-    <TaskContext.Provider value={actionsTask}>
-        {children}
+    <TaskContext.Provider value={tasks}>
+        <TaskDispatchContext.Provider value={dispatch}>
+            {children}
+        </TaskDispatchContext.Provider>
     </TaskContext.Provider>
     );
+}
+
+export function useTasks(){
+    return React.useContext(TaskContext);
+}
+
+export function useTaskDispatch(){
+    return React.useContext(TaskDispatchContext);
 }

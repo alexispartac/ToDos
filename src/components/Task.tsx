@@ -3,10 +3,12 @@ import { TProps } from "../@types/props"
 import axios from "axios"; 
 import styles from '../features/WelcomePage/styles.module.css'
 import { memo } from "react";
+import { useTaskDispatch } from "../features/Context/todoContext";
 
 const DELETE_TASK_URL = 'http://localhost:8080/tasks';
 
-const Task: React.FC<TProps> = ({task, deleteTask, userToken}) => {
+const Task: React.FC<TProps> = ({task, userToken}) => {
+    const dispatch = useTaskDispatch();
 
     const handleDelete = async() => {
 
@@ -24,7 +26,7 @@ const Task: React.FC<TProps> = ({task, deleteTask, userToken}) => {
             alert('The task was not deleted!')
         }
 
-        deleteTask(task.id)
+        dispatch({id :task.id, type: 'delete'});
     }
 
     return (
