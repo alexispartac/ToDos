@@ -23,7 +23,7 @@ export const TaskProvider: React.FC<Props> = ({children , userToken}) => {
             }).catch(() => {
                 setStatus('rejected')
             })
-        }, 2000)
+        }, 1000)
     }, [])
 
     /*****  *****/

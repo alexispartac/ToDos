@@ -1,12 +1,13 @@
+import { ITask } from "./task";
 
 export interface UReq {
     headers: { 
         adminid: string;
     }; 
-    body: { 
-        username: string;
-        password: string;
-    };
+    body: | { 
+                username: string;
+                password: string;
+            }
     query: {
         userId: string;
     };
@@ -31,7 +32,7 @@ export interface URes {
 
 
 export interface TReq {
-    headers: { accesstoken: string; }; 
+    headers: { accesstoken: string } ; 
     body: { 
         id: string;
         description: string;

@@ -12,5 +12,6 @@ export interface BTask extends ITask {
 
 export type TaskDispatch =  | { description: string; type: 'add' }
                             | { id: string; type: 'delete'}
-                            | { data: any; type: 'tasks'};
+                            | { data: any; type: 'tasks'}
+                            | { task: ITask; type: 'edit'}
 

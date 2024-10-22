@@ -19,6 +19,14 @@ const tasksReductor = (tasks: ITask[], action: TaskDispatch) => {
         case "tasks":{
             return [...action.data];
         }
+        case "edit": {
+            return tasks.map( (task) => {
+                if(task.id === action.task.id)
+                    return action.task;
+                else
+                    return task;
+            })
+        }
 
         default:
             throw new Error("Unkonwn action: ");

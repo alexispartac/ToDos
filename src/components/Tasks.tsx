@@ -13,13 +13,14 @@ const Tasks: React.FC<{userToken: string}> = ({userToken}) => {
             <section className={styles.tasks}>
             { 
                 tasks.length ?
-                tasks.map( (task: ITask) => 
-                <Task 
-                    key={task.id} 
-                    task={task} 
-                    userToken={userToken} 
-                />) :
-                <h1> Introduceti taskuri:</h1>
+                tasks.map( (task: ITask) =>
+                        <Task 
+                        key={task.id} 
+                        task={task} 
+                        userToken={userToken} 
+                        />
+                    ) :
+                    <h1> Introduceti taskuri:</h1>
             }
             </section>
             

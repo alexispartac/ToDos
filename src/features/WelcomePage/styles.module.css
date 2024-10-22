@@ -79,7 +79,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.buttoncomplete{
+.buttoncomplete , .buttonsave{
     float: right;
     display: flex;
     font-size: x-large;
@@ -110,4 +110,13 @@
     border-radius: 10px;
     border: 2px solid black;
     text-indent: 10px;
+    font-size: x-large;
 }
+
+.editdata{
+    font-size: x-large;
+    border: none;
+    color: rgb(181, 0, 0);
+    text-indent: 5px;
+}
+

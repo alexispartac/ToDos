@@ -84,3 +84,26 @@ export const deleteTask: any = async(req: TReq, res: TRes) => {
 }
 
 /***** *****/
+
+/***** Update task *****/
+
+export const updateTask: any = async(req: TReq, res: TRes) => {
+    const accessToken = req.headers.accesstoken;
+    const userId: string = JSON.parse(verifyToken(accessToken, secretToken)).userId;
+
+    if(!userId){
+        return res
+        .status(401)
+        .json({message: 'Unauthorized!'});
+    }
+
+    await col.updateOne({id : req.body.id}, {$set : {description: req.body.description}}).catch(
+        () => res
+                    .status(405)
+                    .json({message: "Error-BE: user don't find."})
+    );
+
+    return res.status(200).json({message: 'The task was updated!'})
+}
+
+/***** *****/
